@@ -5,18 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch test function",
+      "name": "Launch Package",
       "type": "go",
-      "debugAdapter": "dlv-dap",
       "request": "launch",
-      "mode": "exec",
-      "port": 1323,
-      "host": "localhost",
-      "program": "${workspaceFolder}",
-      "args": [
-        "-test.run",
-        "MyTestFunction"
-      ]
-    },
+      "mode": "auto",
+      "program": "${fileDirname}",
+      "showLog": true,
+    }
   ]
 }
