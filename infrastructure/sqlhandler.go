@@ -3,6 +3,7 @@ package infrastructure
 import (
 	"database/sql"
 	"example/todo/interfaces/database"
+	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -12,7 +13,8 @@ type SqlHandler struct {
 }
 
 func NewSqlHandler() *SqlHandler {
-	conn, err := sql.Open("mysql", "user:password@tcp(db-dev:3306)/db_dev") //driverName dataSourceName
+	//driverName dataSourceName=[username[:password]@][protocol[(address)]]/dbname[?param1=value1&...&paramN=valueN]
+	conn, err := sql.Open("mysql", "user:password@tcp(db-dev:3306)/db_dev")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -38,7 +40,9 @@ func (handler *SqlHandler) Query(statement string, args ...interface{}) (databas
 		return new(SqlRow), err
 	}
 	row := new(SqlRow)
+	fmt.Println(row)
 	row.Rows = rows
+	fmt.Println(row.Rows)
 	return row, err
 }
 
