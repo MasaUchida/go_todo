@@ -8,7 +8,7 @@ WORKDIR ${ROOT}
 ENV GO111MODULE=on
 
 COPY . .
-EXPOSE 8080
+EXPOSE 1323
 
 RUN go install github.com/cosmtrek/air@latest
 CMD ["air"]

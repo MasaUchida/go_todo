@@ -22,9 +22,11 @@ func (repo *TaskRepository) FindById(Identifier int) (task domain.Task, err erro
 	if err != nil {
 		return
 	}
-	var id int
-	var title string
-	var content string
+	var (
+		id      int
+		title   string
+		content string
+	)
 	row.Next()
 	if err = row.Scan(&id, &title, &content); err != nil {
 		return
@@ -36,15 +38,17 @@ func (repo *TaskRepository) FindById(Identifier int) (task domain.Task, err erro
 }
 
 func (repo *TaskRepository) FindAll() (tasks domain.Tasks, err error) {
+	var (
+		id      int
+		title   string
+		content string
+	)
 	rows, err := repo.Query("SELECT id, title, content FROM tasks")
 	defer rows.Close()
 	if err != nil {
 		return
 	}
 	for rows.Next() {
-		var id int
-		var title string
-		var content string
 		if err = rows.Scan(&id, &title, &content); err != nil {
 			return
 		}
