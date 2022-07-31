@@ -8,7 +8,7 @@ type TaskRepository struct {
 
 func (repo *TaskRepository) Store(t domain.Task) (err error) {
 	_, err = repo.Execute(
-		"INSERT INTO tasks (title, content) VALUES(?,?)", t.Title, t.Content,
+		"INSERT INTO tasks (title, content) VALUES (?,?)", t.Title, t.Content,
 	)
 	if err != nil {
 		return
@@ -31,6 +31,7 @@ func (repo *TaskRepository) FindById(Identifier int) (task domain.Task, err erro
 	if err = row.Scan(&id, &title, &content); err != nil {
 		return
 	}
+
 	task.ID = id
 	task.Title = title
 	task.Content = content
@@ -38,19 +39,20 @@ func (repo *TaskRepository) FindById(Identifier int) (task domain.Task, err erro
 }
 
 func (repo *TaskRepository) FindAll() (tasks domain.Tasks, err error) {
-	var (
-		id      int
-		title   string
-		content string
-	)
 	rows, err := repo.Query("SELECT id, title, content FROM tasks")
 	defer rows.Close()
 	if err != nil {
 		return
 	}
 	for rows.Next() {
-		if err = rows.Scan(&id, &title, &content); err != nil {
-			return
+		var (
+			id      int
+			title   string
+			content string
+		)
+		//ここのerr := が　err = になってたから動かなかった。しかし理由はわからない
+		if err := rows.Scan(&id, &title, &content); err != nil {
+			continue
 		}
 		task := domain.Task{
 			ID:      id,

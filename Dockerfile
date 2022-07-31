@@ -11,4 +11,6 @@ COPY . .
 EXPOSE 1323
 
 RUN go install github.com/cosmtrek/air@latest
+RUN go install github.com/go-delve/delve/cmd/dlv@latest
+
 CMD ["air"]
