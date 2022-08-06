@@ -14,6 +14,8 @@ func Init() {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	//CORS
+	e.Use(middleware.CORS())
 
 	e.GET("/tasks", func(ctx echo.Context) error { return taskController.Index(ctx) })
 	e.GET("/task/:id", func(ctx echo.Context) error { return taskController.Show(ctx) })

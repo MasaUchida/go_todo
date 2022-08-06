@@ -33,7 +33,7 @@ func (controller *TaskController) Create(c echo.Context) (err error) {
 		return
 	}
 
-	c.JSON(200, "compleate")
+	c.JSON(201, "compleate")
 	return
 }
 
@@ -43,7 +43,6 @@ func (controller *TaskController) Index(c echo.Context) (err error) {
 		c.JSON(500, NewError(err))
 		return
 	}
-
 	c.JSON(200, tasks)
 	return
 }

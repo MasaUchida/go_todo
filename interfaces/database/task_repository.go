@@ -50,7 +50,8 @@ func (repo *TaskRepository) FindAll() (tasks domain.Tasks, err error) {
 			title   string
 			content string
 		)
-		//ここのerr := が　err = になってたから動かなかった。しかし理由はわからない
+		//ここのerr := が　err = になってたから動かなかった。Next内のerrに秘密があるかも
+		//どうやらcontinueにしてerr :=にしたことで動くようになったっぽい若干謎
 		if err := rows.Scan(&id, &title, &content); err != nil {
 			continue
 		}

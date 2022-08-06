@@ -2,8 +2,9 @@ package infrastructure
 
 import (
 	"database/sql"
-	"example/todo/interfaces/database"
 	"fmt"
+
+	"example/todo/interfaces/database"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -43,7 +44,7 @@ func (handler *SqlHandler) Query(statement string, args ...interface{}) (databas
 	fmt.Println(row)
 	row.Rows = rows
 	fmt.Println(row.Rows)
-	return row, err
+	return row, nil
 }
 
 type SqlResult struct {
@@ -63,7 +64,8 @@ type SqlRow struct {
 }
 
 func (r SqlRow) Scan(dest ...interface{}) error {
-	return r.Rows.Scan()
+	return r.Rows.Scan(dest...)
+	//↑ここのdestを忘れていたせいでScanした値がきちんと返ってきてなかった
 }
 
 func (r SqlRow) Next() bool {
